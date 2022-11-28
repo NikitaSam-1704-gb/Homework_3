@@ -1,30 +1,32 @@
-﻿// У нас есть кеш - N $ , мы хотим сохранить его от инфляции, кладем в банк и получаем раз в год M % , 
-//через сколько лет у нас получится купить квартиру за K $ , при том , 
-//что цена квартиры также растет на Q % если этот процент больше или равен N , то вывести в консоль безысходность 
+﻿// Напишите программу, которая принимает на вход пятизначное число и проверяет, является ли оно палиндромом.
+
+//14212 -> нет
+
+//12821 -> да
+
+//23432 -> да 
 
 using static System.Console ;
 Clear() ;
 
-Write(" Введите сумму которую вы хотите положить под процент ");
-double moneyInterest=Convert.ToDouble(ReadLine());
 
-Write(" Введите процентр роста стоимости вашего вклада  ");
-int Interest=Convert.ToInt16(ReadLine());
+Write(" Введите число без пробелов max 10 разрядов ") ;
+int chislo =Convert.ToInt32(ReadLine()) ;
 
-Write(" Введите стоимость квартиры  ");
-double сostApartment=Convert.ToDouble(ReadLine());
-
-Write(" Введите рост стоимости квартиры в год, в процентах  ");
-int apartmentInterest=Convert.ToInt16(ReadLine());
-int year=0 ;
-if(apartmentInterest<Interest)
+int ostatok = chislo ;
+int digir=0 ;
+while( ostatok != 0 )                       
 {
-    while (moneyInterest<=сostApartment)
-    {
-        moneyInterest=moneyInterest+(moneyInterest*Interest/100);
-        сostApartment=сostApartment+(сostApartment*apartmentInterest/100);
-        year=year+1 ;
-    }
-    WriteLine($" что накопить необходимую сумму вам понадобиться {year} лет ") ;
-}  
-else WriteLine(" Приданном  роста стоимости вклада и стоимости объекта недвижимости. Покупка невозможна ");
+    ostatok = ostatok/10 ; 
+    digir++ ;                               // находим количество разрядов введенного числа
+}
+int count=0 ;
+for( int i=1; i<=digir/2; i++)
+{
+    int  A=chislo/Convert.ToInt32(Math.Pow( 10, digir-i))%10 - chislo%Convert.ToInt32(Math.Pow( 10, i))/Convert.ToInt32(Math.Pow( 10, i-1));   // сравниваем числа в "зеркальных разрядах"
+    if(A == 0)
+        count++;          // Считаем количество совпадений
+}   
+ if (count==digir/2) 
+ WriteLine ($" число {chislo} является полиндромом") ;
+else WriteLine($" число {chislo} НЕ является полиндромом") ;
